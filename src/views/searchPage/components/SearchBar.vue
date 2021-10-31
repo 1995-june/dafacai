@@ -15,19 +15,22 @@
           <img src="@/static/images/icon-pic.png" alt="">
         </router-link>
     </div>
-    <ul class="sort-wrap">
-      <li
-      v-for="(item, index) in sortTab"
-      :key="index"
-      :class="{active: activeIndex === index}"
-      @click="sortTabClick(index)"
-      >
-      {{item.sortName}}
-      </li>
-    </ul>
-    <div class="sort-icon">
-      <img src="@/static/images/icon-srot.png" alt="">
+    <div class="tab">
+      <ul class="sort-wrap">
+        <li
+        v-for="(item, index) in sortTab"
+        :key="index"
+        :class="{active: activeIndex === index}"
+        @click="sortTabClick(index)"
+        >
+        {{item.sortName}}
+        </li>
+      </ul>
+      <div class="sort-icon">
+        <img src="@/static/images/icon-srot.png" alt="">
+      </div>
     </div>
+    <al-scroll-to></al-scroll-to>
   </div>
 </template>
 <script>
@@ -41,7 +44,8 @@ export default {
   },
   data () {
     return {
-      activeIndex: 0
+      activeIndex: 0,
+      putShow: false
     }
   },
   methods: {
@@ -54,7 +58,9 @@ export default {
 
 <style lang="scss" scoped>
 .serch-wrap {
-  position: relative;
+  .put {
+    height: calc(100vh - 96px - 64px);
+  }
   background-color: #fff;
   .search-bar {
     background-color: #fff;
@@ -101,26 +107,30 @@ export default {
       }
     }
   }
-  .sort-wrap {
-    @include flex(row, center, center);
-    font-size: 28px;
-    color: #323232;
-    li {
-      padding: 26px 0;
-      box-sizing: border-box;
-      flex: 1;
+  .tab {
+    position: relative;
+    .sort-wrap {
       @include flex(row, center, center);
-      &.active {
-        color: #dd2222;
+      font-size: 28px;
+      color: #323232;
+      li {
+        padding: 26px 0;
+        box-sizing: border-box;
+        flex: 1;
+        @include flex(row, center, center);
+        &.active {
+          color: #dd2222;
+        }
       }
     }
-  }
-  .sort-icon {
-    position: absolute;
-    right: 10%;
-    top: 67%;
-    img {
-      @include wh(24px, 24px)
+    .sort-icon {
+      position: absolute;
+      right: 10%;
+      top: 50%;
+      transform: translateY(-50%);
+      img {
+        @include wh(24px, 24px)
+      }
     }
   }
 }

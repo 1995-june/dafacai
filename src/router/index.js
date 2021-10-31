@@ -29,7 +29,10 @@ const routes = [
       },
       {
         path: '/my',
-        component: () => import('@/views/my')
+        component: () => import('@/views/my'),
+        meta: {
+          login: true
+        }
       }
     ]
   },
@@ -46,19 +49,26 @@ const routes = [
     component: () => import('@/views/searchPage')
   },
   {
-    path: '/details',
-    component: () => import('@/views/details')
+    path: '/detail/:id',
+    component: () => import('@/views/detail')
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  },
   routes
 })
 
 router.beforeEach((to, from, next) => {
-  const isLogin = document.cookie.indexOf('token') !== -1
+  const isLogin = document.cookie.includes('token')
   if (to.meta.login) {
     if (isLogin) {
       next()

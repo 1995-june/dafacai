@@ -8,6 +8,7 @@
 <script>
 import UserInfo from './components/UserInfo.vue'
 import Service from './components/Service.vue'
+import { mapState } from 'vuex'
 export default {
   name: 'my',
   components: {
@@ -16,7 +17,6 @@ export default {
   },
   data () {
     return {
-      info: {},
       nav: [
         {
           path: '/',
@@ -59,19 +59,15 @@ export default {
       ]
     }
   },
-  created () {
-    this.fetchUserInfo()
-  },
-  methods: {
-    fetchUserInfo () {
-      this.$api.user.info().then((res) => {
-        this.info = res.info
-      })
-    }
+  computed: {
+    ...mapState('user', ['info'])
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.my {
+  padding-top: 96px;
+  box-sizing: border-box;
+}
 </style>

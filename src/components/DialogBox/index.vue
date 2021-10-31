@@ -5,7 +5,7 @@
   >
     <div class="dialog-box-wrap">
       <div class="dialog-box">
-        <header>{{title}}</header>
+        <header v-if="title">{{title}}</header>
         <div class="content">
           <slot></slot>
         </div>
@@ -28,8 +28,9 @@ export default {
   @include wh (100vw, 100vh);
   background-color: rgba(0, 0, 0, .4);
   @include centerer;
-  z-index: 1111;
+  z-index: 1111111;
   .dialog-box {
+    width: 60%;
     border-radius: 24px;
     background-color:  rgba(255, 255, 255, 0.8);
     box-sizing: border-box;
@@ -38,16 +39,25 @@ export default {
       font-size: 34px;
       font-weight: bold;
       border-bottom: 1px solid #ccc;
-      padding: 36px 104px;
+      height: 104px;
+      line-height: 104px;
       white-space: nowrap;
       box-sizing: border-box;
       text-align: center;
     }
-    .content {
-      font-size: 28px;
-      padding: 20px 220px;
+    /deep/.content {
       white-space: nowrap;
       box-sizing: border-box;
+      height: 100%;
+      padding: 18px 0;
+      box-sizing: border-box;
+      a {
+        text-decoration: none;
+         font-size: 36px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+      }
     }
   }
 }

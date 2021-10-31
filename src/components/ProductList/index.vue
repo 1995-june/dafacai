@@ -1,8 +1,10 @@
 <template>
     <div class="product-list-wrap">
-      <dl
+      <router-link
         v-for="(item, index) in list"
         :key="index"
+        :to="`/detail/${item.id}`"
+        tag="dl"
       >
         <dt>
           <img :src="item.img" alt="">
@@ -10,18 +12,17 @@
         <dd>
           <h2>{{item.name}}</h2>
           <div class="price-wrap">
-            <p><b>￥</b>{{item.price | price}}<span>/袋</span></p>
-            <div class="add">
-                <img src="@/static/images/add.png" alt="">
-            </div>
+            <p><b>￥</b>{{item.price | price}}<span>/袋</span></p><al-add-car :info="item"></al-add-car>
           </div>
         </dd>
-      </dl>
+      </router-link>
     </div>
 </template>
 <script>
+
 export default {
   name: 'product-list',
+
   props: {
     list: Array,
     default: () => []
@@ -76,11 +77,6 @@ export default {
           span {
             font-size: 24px;
             color: #B2B2B2;
-          }
-        }
-        .add {
-          img {
-            @include wh(48px, 48px);
           }
         }
       }

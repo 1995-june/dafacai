@@ -8,10 +8,16 @@
       <div class="footer-log">
         <img src="@/static/images/footerTitle.png" alt="">
       </div>
+      {{count}}
+      {{age}}
+      {{sex}}
+      <button @click="setCount">改变</button>
+      <!-- {{doing}} -->
     </div>
 </template>
 <script>
 import Navigator from './components/Navigator.vue'
+import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'home',
   components: {
@@ -53,12 +59,31 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapState(['count', 'age', 'sex']),
+    ...mapGetters(['doing'])
+  },
+  created () {
+    // setTimeout(() => {
+    //   this.$store.commit('SET_COUNT', 400)
+    // }, 3000)
+
+    setTimeout(() => {
+      this.$store.dispatch('set_count', 400)
+    }, 3000)
+  },
+  methods: {
+    setCount () {
+      this.$store.commit('SET_COUNT', +new Date())
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .home {
+ padding: 96px 0 140px;
   min-height: 100vh;
   .footer-log {
     @include flex(flex, center, center);

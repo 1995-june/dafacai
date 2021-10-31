@@ -35,6 +35,7 @@
     </div>
 </template>
 <script>
+
 export default {
   name: 'login',
   data () {
@@ -42,6 +43,7 @@ export default {
       time: 0,
       msgShow: false,
       dialog: '',
+      getCode: '',
       loginParams: {
         phone: '',
         code: ''
@@ -69,11 +71,12 @@ export default {
       this.$api.user.send_msg_code({
         phone: this.loginParams.phone
       }).then((res) => {
-        console.log(res)
+        console.log(res.message)
+        this.loginParams.code = res.message.substr(39, 6)
       })
     },
     login () {
-      this.$api.user.login(this.loginParams).then((res) => {
+      this.$store.dispatch('user/login', this.loginParams).then(() => {
         const path = this.$route.query.callback || '/home'
         this.$router.replace(path)
       }).catch((e) => {
@@ -87,6 +90,7 @@ export default {
 
 <style lang="scss" scoped>
 .login {
+  padding: 96px 0;
   @include wh(100vw, 100vh);
   background-color: #fff;
   .login-header {

@@ -10,9 +10,15 @@ const api = {
     menu: () => fetch.get('/api/product/category')
   },
   product: {
-    productList: (params = {}) => fetch.get('/api/product/productList', params)
+    productList: (params = {}) => fetch.get('/api/product/productList', params),
+    details: (id) => fetch.get('/api/product/' + id)
+  },
+  car: {
+    list: () => fetch.get('/api/car/list'),
+    add: (params) => fetch.post('/api/car/add', params),
+    update: (params) => fetch.post('/api/car/update', params),
+    reduce: (params) => fetch.post('/api/car/reduce', params)
   }
-
 }
 
 export default api

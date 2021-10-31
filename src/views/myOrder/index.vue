@@ -2,6 +2,7 @@
     <div class="my-order">
       <al-top-title title="我的订单" class="order" previous="previous" :paths="paths"></al-top-title>
       <nav-class></nav-class>
+      {{orderProduct.map(item => item.img)}}
         <div class="tips-wrap">
           <dl>
             <dt>
@@ -9,16 +10,31 @@
             </dt>
             <dd>你还没有下过订单</dd>
           </dl>
-          <button type="button" class="other-btn">去逛逛</button>
+          <router-link
+            to="/class"
+            tag="button"
+            type="button"
+            class="other-btn"
+          >去逛逛</router-link>
         </div>
     </div>
 </template>
 <script>
 import NavClass from './components/NavClass.vue'
+import { mapState } from 'vuex'
 export default {
   name: 'my-order',
   components: {
     NavClass
+  },
+  computed: {
+    ...mapState('car', ['list']),
+    // eslint-disable-next-line vue/return-in-computed-property
+    orderProduct () {
+      return this.list.filter(item => {
+        return item.status === '1'
+      })
+    }
   },
   data () {
     return {

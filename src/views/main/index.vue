@@ -1,13 +1,16 @@
 <template>
     <div class="switch-tab">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
         <al-footer-bar></al-footer-bar>
     </div>
 </template>
 <script>
 export default {
+  name: 'switch-tab',
   mounted () {
-    console.log(this.$alert)
+    // console.log(this.$alert)
   }
 }
 </script>

@@ -1,8 +1,22 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive include="switch-tab">
+      <router-view/>
+    </keep-alive>
   </div>
 </template>
+
+<script>
+
+export default {
+  name: 'app',
+  created () {
+    if (this.$store.state.user.token) {
+      this.$store.dispatch('user/info')
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {

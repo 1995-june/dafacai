@@ -1,21 +1,12 @@
 <template>
     <div class="search-page">
-      <al-top-title title="搜索" previous="previous" :paths="paths"></al-top-title>
-      <search-bar :sortTab="sortTab"></search-bar>
-      <dl>
-        <dt>
-          <img src="https://img11.360buyimg.com/n7/jfs/t1/90299/11/19398/213470/615f12b0Ea8650666/d4e2c7810d668d96.jpg" alt="">
-        </dt>
-        <dd>
-          <p>大希地 鸡排健身餐忘不了大鸡排135g</p>
-          <div class="price">
-            <b><i>￥</i>13.6<span>/袋</span></b>
-            <div class="add">
-              <img src="@/static/images/add.png" alt="">
-            </div>
-          </div>
-        </dd>
-      </dl>
+      <div class="search">
+        <al-top-title title="搜索" previous="previous" :paths="paths"></al-top-title>
+        <search-bar :sortTab="sortTab"></search-bar>
+      </div>
+      <div class="search-product">
+        <al-product-list :list="products"></al-product-list>
+       </div>
     </div>
 </template>
 <script>
@@ -38,54 +29,104 @@ export default {
         {
           sortName: '价格'
         }
-      ]
+      ],
+      productParmas: {
+        page: 1,
+        page_size: 10,
+        categoryId: 1
+      },
+      products: []
     }
+  },
+  created () {
+    this.fetchProductList()
+  },
+  // 数据监听
+  watch: {
+    productParmas: {
+      handler: 'fetchProductList',
+      deep: true
+    }
+  },
+  methods: {
+    // 产品列表
+    async fetchProductList () {
+      const res = await this.$api.product.productList(this.productParmas)
+      if (this.productParmas.page === 1) {
+        this.products = res.data
+        window.scrollTo(0, 0)
+      } else {
+        this.products = this.products.concat(res.data)
+      }
+    }
+  },
+  onScrollBottom () {
+    this.productParmas.page += 1
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .search-page {
-  padding-top: 96px;
-}
-dl {
-  margin: 20px;
-  background-color: #ffffff;
-  border-radius: 16px;
-  width: 340px;
-  dt {
-    @include wh(340px, 340px);
-    img {
-      @include wh(100%, 100%);
-    }
+  width: 100%;
+  padding-top: 280px;
+  .search {
+    width: 100%;
+    position: fixed;
+    top: 96px;
+    z-index: 111;
   }
-  dd {
-    padding: 16px;
-    box-sizing: border-box;
-    p {
-      font-size: 32px;
-      color: #323232;
-    }
-    .price {
-      @include flex(row, center, space-between);
-      margin-top: 16px;
-      b {
-        font-size: 36px;
-        color: #dd2222;
-        font-weight: bold;
-        i {
-          font-size: 14px;
+  /deep/.search-product {
+    @include wh(100%, auto);
+    .product-list-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      dl {
+        background-color: #ffffff;
+        border-radius: 16px;
+        width: 380px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        box-sizing: border-box;
+        margin: 10px 0;
+        dt {
+          @include wh(340px, 340px);
+          img {
+            @include wh(100%, 100%);
+          }
         }
-        span {
-          font-size: 24px;
-          color: #b2b2b2;
-        }
-      }
-      .add {
-        margin-left: 2px;
-        @include wh(48px, 48px);
-        img {
-          @include wh(100%, 100%)
+        dd {
+          padding-top: 16px;
+          padding-right: 0;
+          box-sizing: border-box;
+          p {
+            font-size: 32px;
+            color: #323232;
+          }
+          .price-wrap {
+            @include flex(row, center, space-between);
+            margin-top: 16px;
+            p {
+              font-size: 36px;
+              font-weight: bold;
+              color: #dd2222;
+              b {
+                font-size: 24px;
+              }
+              span {
+                font-size: 24px;
+                color: #B2B2B2;
+              }
+            }
+            .add {
+              @include wh(48px, 48px);
+              img {
+                @include wh(100%, 100%)
+              }
+            }
+          }
         }
       }
     }

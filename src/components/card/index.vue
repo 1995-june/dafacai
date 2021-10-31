@@ -22,6 +22,7 @@ export default {
 <style lang="scss" scoped>
 .card {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 32px 0;
@@ -37,6 +38,10 @@ export default {
     img {
       @include wh(64px, 6px)
     }
+  }
+  .content {
+    margin-top: 30px;
+    background-color: #fff;
   }
 }
 </style>
