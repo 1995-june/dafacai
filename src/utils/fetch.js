@@ -1,3 +1,5 @@
+// 在 utils 文件下建立 fetch.js 文件 封装 ajax api
+
 import axios from 'axios'
 import router from '@/router'
 

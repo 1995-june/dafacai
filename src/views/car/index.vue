@@ -14,7 +14,7 @@
         </div>
         <car-list></car-list>
         <footer-tool></footer-tool>
-      <div class="tips-wrap" v-show="otherProduct">
+      <div class="tips-wrap" v-if="list.length === 0">
           <dl>
             <dt>
               <img src="@/static/images/pic-empty.png" alt="">
@@ -27,7 +27,7 @@
             type="button"
             class="other-btn"
             >去逛逛</router-link>
-        </div>
+      </div>
     </div>
 </template>
 <script>
@@ -44,11 +44,22 @@ export default {
   computed: {
     ...mapState('car', ['list'])
   },
+  // mounted () {
+  //   this.$confirm('确定删除此商品？')
+  // },
   data () {
     return {
       otherProduct: false
     }
   }
+  // ,
+  // beforeRouteLeave (to, from, next) {
+  //   this.$confirm('确定删除此商品？').then(() => {
+  //     next()
+  //   }).catch(() => {
+  //     next(false)
+  //   })
+  // }
 }
 </script>
 

@@ -14,49 +14,79 @@ const routes = [
     children: [
       {
         path: '/home',
-        component: () => import('@/views/home')
+        name: 'home',
+        component: () => import('@/views/home'),
+        meta: {
+          title: '首页'
+        }
       },
       {
         path: '/class',
-        component: () => import('@/views/class')
+        name: 'class',
+        component: () => import('@/views/class'),
+        meta: {
+          title: '分类'
+        }
       },
       {
         path: '/car',
+        name: 'car',
         component: () => import('@/views/car'),
         meta: {
-          login: true
+          login: true,
+          title: '购物车'
         }
       },
       {
         path: '/my',
+        name: 'my',
         component: () => import('@/views/my'),
         meta: {
-          login: true
+          login: true,
+          title: '我的'
         }
       }
     ]
   },
   {
     path: '/login',
-    component: () => import('@/views/login')
+    name: 'login',
+    component: () => import('@/views/login'),
+    meta: {
+      title: '登陆'
+    }
   },
   {
     path: '/myOrder',
-    component: () => import('@/views/myOrder')
+    name: 'myOrder',
+    component: () => import('@/views/myOrder'),
+    meta: {
+      title: '我的订单'
+    }
   },
   {
     path: '/searchPage',
-    component: () => import('@/views/searchPage')
+    name: 'searchPage',
+    component: () => import('@/views/searchPage'),
+    meta: {
+      title: '搜索'
+    }
   },
   {
-    path: '/detail/:id',
-    component: () => import('@/views/detail')
+    path: '/detail/:id/:title',
+    name: 'detail',
+    component: () => import('@/views/detail'),
+    meta: {
+      title: '详情'
+    }
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
+  // 使用前端路由，当切换到新路由时，想要页面滚到顶部，
+  // 或者是保持原先的滚动位置，就像重新加载页面那样
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
@@ -82,6 +112,13 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     next()
+  }
+})
+
+router.afterEach((to, from) => {
+  if (to.name !== 'detail') {
+    document.title = to.meta.title
+    console.log(to)
   }
 })
 

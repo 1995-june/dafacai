@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-      <al-top-title title="商品详情" previous="previous" :paths="paths"></al-top-title>
+      <al-top-title title="商品详情" previous="previous"></al-top-title>
       <banner :items="detail.images"></banner>
       <dl>
         <dt>
@@ -34,7 +34,6 @@ export default {
   },
   data () {
     return {
-      paths: '/class',
       detail: {}
     }
   },
@@ -57,6 +56,10 @@ export default {
     price (value) {
       return (value / 100).toFixed(2)
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    document.title = to.params.title
+    next()
   }
 }
 </script>

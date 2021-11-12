@@ -1,3 +1,8 @@
+/**
+ *  rem 的适配解决
+ *  src 文件下 建立 utils 文件
+ **/
+
 const baseSize = 100
 const baseWidth = 414
 

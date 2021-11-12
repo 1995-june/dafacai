@@ -1,6 +1,11 @@
 <template>
     <div class="top-title">
-      <div class="previous-page" v-if="previous"><router-link tag="i" :to="paths" class="iconfont icon-youjiantou"></router-link></div>
+      <div class="previous-page" v-if="previous">
+        <i
+          class="iconfont icon-youjiantou"
+          @click="routerBack"
+        ></i>
+      </div>
       <header>{{title}}</header>
     </div>
 </template>
@@ -9,8 +14,12 @@ export default {
   name: 'top-title',
   props: {
     title: String,
-    previous: String,
-    paths: String
+    previous: String
+  },
+  methods: {
+    routerBack () {
+      this.$router.go(-1)
+    }
   }
 }
 </script>

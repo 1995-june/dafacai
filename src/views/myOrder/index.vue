@@ -1,9 +1,9 @@
 <template>
     <div class="my-order">
-      <al-top-title title="我的订单" class="order" previous="previous" :paths="paths"></al-top-title>
+      <al-top-title title="我的订单" class="order" previous="previous"></al-top-title>
       <nav-class></nav-class>
-      {{orderProduct.map(item => item.img)}}
-        <div class="tips-wrap">
+      {{orderProduct.map(item => item.name)}}
+        <div class="tips-wrap" v-if="list.length === 0">
           <dl>
             <dt>
               <img src="@/static/images/kongPrder.png" alt="">
@@ -16,6 +16,7 @@
             type="button"
             class="other-btn"
           >去逛逛</router-link>
+          {{list.length}}
         </div>
     </div>
 </template>
@@ -36,10 +37,8 @@ export default {
       })
     }
   },
-  data () {
-    return {
-      paths: '/my'
-    }
+  created () {
+    console.log(this.list.length)
   }
 }
 </script>

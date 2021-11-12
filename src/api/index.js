@@ -1,3 +1,7 @@
+/**
+ * 在 src 下建立  api 文件，建立index.js，
+ * 在 main.js 中添加的原型里 Vue.prototype.$api = api
+**/
 import fetch from '@/utils/fetch.js'
 
 const api = {

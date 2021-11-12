@@ -1,7 +1,7 @@
 <template>
     <div class="search-page">
       <div class="search">
-        <al-top-title title="搜索" previous="previous" :paths="paths"></al-top-title>
+        <al-top-title title="搜索" previous="previous"></al-top-title>
         <search-bar :sortTab="sortTab"></search-bar>
       </div>
       <div class="search-product">
@@ -18,7 +18,6 @@ export default {
   },
   data () {
     return {
-      paths: '/class',
       sortTab: [
         {
           sortName: '综合'

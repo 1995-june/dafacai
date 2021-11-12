@@ -3,7 +3,12 @@
       <router-link
         v-for="(item, index) in list"
         :key="index"
-        :to="`/detail/${item.id}`"
+        :to="{
+          path: `/detail/${item.id}/${item.name}`,
+          query: {
+            type: item.name
+          }
+        }"
         tag="dl"
       >
         <dt>

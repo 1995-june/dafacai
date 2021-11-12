@@ -24,7 +24,7 @@
             <div class="tool">
               <div class="form-item">
                 <label>购买数量:</label>
-                <al-number :value="this.num"></al-number>
+                <al-number class="al-number" :value="num"></al-number>
               </div>
               <button class="add-btn" @click="addCar">加入购物车</button>
             </div>
@@ -33,7 +33,6 @@
     </div>
 </template>
 <script>
-
 export default {
   name: 'add-car',
   props: {

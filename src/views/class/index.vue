@@ -49,7 +49,6 @@ export default {
     this.fetchMenuData()
     this.fetchProductList()
   },
-
   methods: {
     // 分类列表
     async fetchMenuData () {
